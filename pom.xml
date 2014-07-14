@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>org.sonatype.oss</groupId>
+		<artifactId>oss-parent</artifactId>
+		<version>9</version>
+	</parent>
+
+	<groupId>pl.org.miki</groupId>
+	<artifactId>java8-quickstart-archetype</artifactId>
+	<version>1.0.0-SNAPSHOT</version>
+	<packaging>maven-archetype</packaging>
+
+	<name>${project.artifactId}</name>
+	<description>Very basic Java 8 archetype. Creates empty package directories and sets up the compiler plugin (also adds JUnit dep).</description>
+	<url>https://github.com/mikkoz/java8-quickstart-archetype</url>
+
+	<licenses>
+		<license>
+			<name>BSD 3-clause "New" or "Revised" License</name>
+			<url>http://www.spdx.org/licenses/BSD-3-Clause</url>
+		</license>
+	</licenses>
+
+	<scm>
+		<connection>scm:git:https://github.com/mikkoz/${project.artifactId}.git</connection>
+		<developerConnection>scm:git:https://github.com/mikkoz/${project.artifactId}.git</developerConnection>
+		<url>https://github.com/mikkoz/${project.artifactId}.git</url>
+	</scm>
+
+	<developers>
+		<developer>
+			<name>Mikołaj Koziarkiewicz</name>
+			<email>miki@miki.org.pl</email>			
+			<organization>Miki's OSS Projects</organization>
+			<organizationUrl>http://miki.org.pl</organizationUrl>
+		</developer>
+	</developers>
+	<inceptionYear>2014</inceptionYear>
+
+	<properties>
+		<archetype.plugin.version>2.2</archetype.plugin.version>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+
+	<profiles>
+		<profile>
+			<id>release-version</id>
+			<activation>
+				<property>
+					<name>performRelease</name>
+					<value>true</value>
+				</property>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-gpg-plugin</artifactId>
+						<version>1.4</version>
+						<executions>
+							<execution>
+								<id>sign-artifacts</id>
+								<phase>verify</phase>
+								<goals>
+									<goal>sign</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
+
+	<build>
+		<extensions>
+			<extension>
+				<groupId>org.apache.maven.archetype</groupId>
+				<artifactId>archetype-packaging</artifactId>
+				<version>${archetype.plugin.version}</version>
+			</extension>
+		</extensions>
+
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<artifactId>maven-archetype-plugin</artifactId>
+					<version>${archetype.plugin.version}</version>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+
+		<plugins>
+			<plugin>
+				<!-- we need this to create a dummy Javadoc as required by the Sonatype 
+					OSS repo. -->
+				<artifactId>maven-assembly-plugin</artifactId>
+				<version>2.4</version>
+				<executions>
+					<execution>
+						<phase>verify</phase>
+						<goals>
+							<goal>single</goal>
+						</goals>
+						<configuration>
+							<descriptors>
+								<descriptor>src/assemble/javadoc-dummy.xml</descriptor>
+							</descriptors>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+				<version>2.2.1</version>
+				<executions>
+					<execution>
+						<phase>verify</phase>
+						<goals>
+							<goal>jar-no-fork</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+</project>
