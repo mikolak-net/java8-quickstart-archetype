@@ -16,7 +16,14 @@
 
 	<name>${project.artifactId}</name>
 	<description>Basic Java 8 archetype. Options:
--testLibrary: [junit,testng,none]. Default: junit. Adds the requested test library to the POM deps.
+-testLibrary: [junit, testng, none]. DEFAULT: junit. Adds the requested test library to the POM deps.
+-compilerMode: [simple, test-only, retrolambda-main, retrolambda-all]. DEFAULT: simple.
+--simple: everything is compiled as Java 8.
+--test-only: set up test for Java 8, and main for Java 7.
+--retrolambda-main: main code is compiled as Java 8, and then converted to Java 7 via retrolambda.
+--retrolambda-all: all code is compiled as Java 8, and then converted to Java 7 via retrolambda.
+
+NOTE: Retrolambda support provided "as is" - if you have any problems, please file a ticket on the GitHub page!
 </description>
 	<url>https://github.com/mikkoz/java8-quickstart-archetype</url>
 

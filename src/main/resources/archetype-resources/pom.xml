@@ -7,9 +7,32 @@
 	<version>${version}</version>
 	<packaging>jar</packaging>
 
+##macro for error messages
+#macro( checkPropertyValid $paramName $paramValue $legalValues )
+#if (!$legalValues.contains($paramValue))
+		-------
+		<ERROR>: "$paramName"=$paramValue, which is an invalid value!
+		Allowed values are: $legalValues.
+		See the archetype description and rerun archetype:generate
+		-------
+#end
+#end
+##
+#set ($retroLambdaAll = "retrolambda-all")
+#set ($retroLambdaOpts = ["retrolambda-main",$retroLambdaAll])
+##
+#set ($validCompilerModes = ["simple","test-only"])
+#set ($dummyResult = $validCompilerModes.addAll($retroLambdaOpts))
+##
+#set ($isModeRetroLambda = $retroLambdaOpts.contains($compilerMode))
+
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+#checkPropertyValid( "compilerMode" $compilerMode $validCompilerModes )	
 		<java.version>1.8</java.version>
+#if ($isModeRetroLambda)
+		<retrolambda.target>1.7</retrolambda.target>
+#end
 	</properties>
 
 	<build>
@@ -23,10 +46,36 @@
 					<target>${java.version}</target>
 				</configuration>
 			</plugin>
+#if ($isModeRetroLambda)
+			<plugin>
+				<groupId>net.orfjackal.retrolambda</groupId>
+				<artifactId>retrolambda-maven-plugin</artifactId>
+				<version>1.4.0</version>
+				<executions>
+					<execution>
+						<goals>
+							<goal>process-main</goal>
+#if ($compilerMode == $retroLambdaAll)							
+							<goal>process-test</goal>
+#end							
+						</goals>
+						<configuration>
+							<target>${retrolambda.target}</target>
+						</configuration>						
+					</execution>
+				</executions>
+			</plugin>
+#end			
 		</plugins>
 	</build>
 	<dependencies>
+##test library code
 #set ($supportedLibs = ["junit","testng"])
+#set ($validTestLibraries = ["none"])
+#set ($dummyResult = $validTestLibraries.addAll($supportedLibs))
+##
+#checkPropertyValid( "testLibrary" $testLibrary $validTestLibraries )
+##
 #if ( $supportedLibs.contains($testLibrary))
 		<dependency>
 #if ( $testLibrary == "junit" )
@@ -42,10 +91,6 @@
 		</dependency>
 #elseif ( $testLibrary == "none")
 		<!-- include your dependencies here -->
-#else
-		<ERROR>: "testLibrary"=${testLibrary}, which is an invalid value!
-		Allowed values are: junit,testng,none. 
-		See the archetype description and rerun archetype:generate
 #end
 	</dependencies>
 </project>
