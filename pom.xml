@@ -15,7 +15,9 @@
 	<packaging>maven-archetype</packaging>
 
 	<name>${project.artifactId}</name>
-	<description>Very basic Java 8 archetype. Creates empty package directories and sets up the compiler plugin (also adds JUnit dep).</description>
+	<description>Basic Java 8 archetype. Options:
+-testLibrary: [junit,testng,none]. Default: junit. Adds the requested test library to the POM deps.
+</description>
 	<url>https://github.com/mikkoz/java8-quickstart-archetype</url>
 
 	<licenses>

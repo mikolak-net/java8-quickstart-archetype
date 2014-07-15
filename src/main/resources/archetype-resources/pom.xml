@@ -26,11 +26,26 @@
 		</plugins>
 	</build>
 	<dependencies>
+#set ($supportedLibs = ["junit","testng"])
+#if ( $supportedLibs.contains($testLibrary))
 		<dependency>
+#if ( $testLibrary == "junit" )
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<version>4.11</version>
+#elseif ( $testLibrary == "testng" )		
+			<groupId>org.testng</groupId>
+			<artifactId>testng</artifactId>
+			<version>6.8.8</version>
+#end
 			<scope>test</scope>
 		</dependency>
+#elseif ( $testLibrary == "none")
+		<!-- include your dependencies here -->
+#else
+		<ERROR>: "testLibrary"=${testLibrary}, which is an invalid value!
+		Allowed values are: junit,testng,none. 
+		See the archetype description and rerun archetype:generate
+#end
 	</dependencies>
 </project>
