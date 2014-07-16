@@ -37,3 +37,8 @@ Basic Java 8 archetype. Options:
  * `retrolambda-all`: all code is compiled as Java 8, and then converted to Java 7 via retrolambda.
 
 NOTE: Retrolambda support provided "as is" - if you have any problems, please file a ticket on the GitHub page!
+
+Why yet another archetype?
+=========================
+
+The sister-project Scala archetype cointains a [ranty explanation for that](https://github.com/mikkoz/scala-quickstart-archetype/blob/master/README.md#why-yet-another-archetype).
