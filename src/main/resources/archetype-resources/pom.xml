@@ -18,20 +18,32 @@
 #end
 #end
 ##
+#set ($javaVersionSuperior = "1.8")
+#set ($javaVersionInferior = "1.7") ## because it is!
+##
 #set ($retroLambdaAll = "retrolambda-all")
 #set ($retroLambdaOpts = ["retrolambda-main",$retroLambdaAll])
 ##
-#set ($validCompilerModes = ["simple","test-only"])
+#set ($testOnlyMode = "test-only")
+#set ($validCompilerModes = ["simple",$testOnlyMode])
 #set ($dummyResult = $validCompilerModes.addAll($retroLambdaOpts))
 ##
 #set ($isModeRetroLambda = $retroLambdaOpts.contains($compilerMode))
+#set ($isModeTestOnly = $compilerMode == $testOnlyMode)
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-#checkPropertyValid( "compilerMode" $compilerMode $validCompilerModes )	
-		<java.version>1.8</java.version>
+#checkPropertyValid( "compilerMode" $compilerMode $validCompilerModes )
+#if ($isModeTestOnly) 
+		<java.version>${javaVersionInferior}</java.version>
+		<java.version.test>${javaVersionSuperior}</java.version.test>
+		<compiler.path><!-- your ${javaVersionInferior} javac path here, e.g. /usr/lib/jvm/java-7-oracle --></compiler.path>
+		<compiler.path.test><!-- your ${javaVersionSuperior} javac path here, e.g. /usr/lib/jvm/java-8-oracle --></compiler.path.test>
+#else
+		<java.version>${javaVersionSuperior}</java.version>
+#end
 #if ($isModeRetroLambda)
-		<retrolambda.target>1.7</retrolambda.target>
+		<retrolambda.target>${javaVersionInferior}</retrolambda.target>
 #end
 	</properties>
 
@@ -44,7 +56,28 @@
 				<configuration>
 					<source>${java.version}</source>
 					<target>${java.version}</target>
+#if ($isModeTestOnly)
+					<executable>${compiler.path}/bin/javac</executable>
+					<compilerVersion>${java.version}</compilerVersion>
+#end					
 				</configuration>
+#if ($isModeTestOnly)
+				<executions>
+					<execution>
+						<id>default-testCompile</id>
+						<phase>test-compile</phase>
+						<goals>
+							<goal>testCompile</goal>
+						</goals>
+						<configuration>
+							<fork>true</fork>
+							<executable>${compiler.path.test}/bin/javac</executable>
+							<source>${java.version.test}</source>
+							<target>${java.version.test}</target>
+						</configuration>
+					</execution>
+				</executions>
+#end				
 			</plugin>
 #if ($isModeRetroLambda)
 			<plugin>
