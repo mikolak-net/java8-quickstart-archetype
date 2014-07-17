@@ -1,5 +1,4 @@
 = java8-quickstart-archetype
-:common-stuff: https://raw.githubusercontent.com/mikkoz/quickstart-archetype-common/master
 :allow-uri-read:
 
 A bloody simple Java 8 archetype. Has the following features:
@@ -40,4 +39,4 @@ Basic Java 8 archetype. Options:
 NOTE: Retrolambda support provided "as is" - if you have any problems, please file a ticket on the GitHub page!
 
 
-include::{common-stuff}/rationarant.asciidoc[]
+include::../quickstart-archetype-common/rationarant.asciidoc[]
