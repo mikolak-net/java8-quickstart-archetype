@@ -1,5 +1,4 @@
 = java8-quickstart-archetype
-:allow-uri-read:
 
 A bloody simple Java 8 archetype. Has the following features:
 
@@ -38,33 +37,4 @@ Basic Java 8 archetype. Options:
 
 NOTE: Retrolambda support provided "as is" - if you have any problems, please file a ticket on the GitHub page!
 
-Why yet another archetype?
---------------------------
-
-An excellent question! First of all, archetypes are sometimes quite underrated as a concept - 
-they provide a gateway to various technologies and frameworks to coders who are not Maven, er, 
-https://en.wikipedia.org/wiki/Maven[mavens].
-
-Given that, let's take a look at some "generic" archetypes such as `net.alchim31.maven:scala-archetype-simple` 
-or `org.apache.maven.archetypes:maven-archetype-quickstart`. After project creation, 
-it becomes apparent that they serve mainly the following purposes:
-* creating the POM boilerplate for the specific project type,
-* introducing the POM creator to some associated frameworks, technologies and/or patterns (e.g. the Scala archetype includes no less than _three_ different test libraries at the same time).
-
-At this point, coupled with the premise that POMs are essentially executable (declarative) build configuration code, 
-it can be argued that the aforementioned archetypes fail the 
-https://en.wikipedia.org/wiki/Single_responsibility_principle[SRP].
-
-The archetype you're now viewing, and its sister project,
- attempt to alleviate this problem.
-
-Namely, they have a single goal in mind: enable a user to create multiple projects, 
-with the most popular _exclusive_ configuration _variants_, and with the _least_ "educto-boilerplate" to clean up.
-
-The last subpoint emphasizes why this goal was chosen as a primary one, over educating newcomers. 
-
-Nowadays, various 3rd party ecosystem libs (such as the aforementioned http://junit.org/[three] 
-http://www.scalatest.org/[testing] https://etorreborre.github.io/specs2/[libraries] ) 
-tend to do a decent job at introducing new developers. Therefore, it is posited that it's more efficient for 
-any given archetype user to have a _tabula rasa_ available at any time than to being educated - 
-a job that's somewhat redundant,  given the context.
+include::common/rationarant.asciidoc[]
