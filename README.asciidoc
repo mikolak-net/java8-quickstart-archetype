@@ -1,40 +1,106 @@
-= java8-quickstart-archetype
+# java8-quickstart-archetype
+:groupId: pl.org.miki
+:artifactId: java8-quickstart-archetype
+:version: 1.0.0
+:noteOption: (see <<_options,Options>> for more info)
+:toc:
+
+## Introduction
 
 A bloody simple Java 8 archetype. Has the following features:
 
  * minimizes the amount of "example" files that you would have to delete anyway (cf. `maven-quickstart-archetype`).
  * automatically creates *empty* package directories for `main` and `test`.
- * let's you setup many Java 8 configuration variants for all your legacy needs (see `Usage`).
+ * let's you setup many Java 8 configuration variants for all your legacy needs {noteOption}.
  * optionally includes JUnit or TestNG dependencies (JUnit by default).
  
-In general, this archetype is primarily useful for quickly creating "lite" projects that are intended to run on a Java 8 JRE.
+In general, this archetype is primarily useful for quickly creating cruft-free projects for Java 8 development.
 
-== Usage
+## Usage
 
-Analogous to `maven-quickstart-archetype`. Until the artifact ends up in Maven Central, you can use it as follows:
+Analogous to `maven-quickstart-archetype`. Since the archetype is now on Maven Central, you don't need to download anything.
 
-[source,bash]
+### CLI
+
+#### Batch
+
+[source,bash,subs="attributes"]
 ----
-git clone https://github.com/mikkoz/java8-quickstart-archetype.git
-cd java8-quickstart-archetype
-mvn clean install
+mvn archetype:generate -B \
+ -DarchetypeGroupId={groupId} -DarchetypeArtifactId={artifactId} -DarchetypeVersion={version} \
+ -DgroupId=com.example -DartifactId=project -Dversion=1.0 -Dpackage=com.example.project \
+ -DcompilerMode=[simple, test-only, retrolambda-main, retrolambda-all] \ #optional
+ -DtestLibrary=[junit, testng, none] #optional
+----
+
+#### Interactive
+
+[source,bash,subs="attributes"]
+----
 cd x #where x is your "workspace" directory
 mvn archetype:generate
-#filter by e.g. "java8"
+#filter by e.g. "java8", or gId:aId, which is {groupId}:{artifactId}
 #input artifactId etc. 
 ----
 
-And here's an infodump from the project's description:
+### IDE
 
-Basic Java 8 archetype. Options:
+#### Eclipse
 
-* `testLibrary`: [`junit`, `testng`, `none`]. DEFAULT: `junit`. Adds the requested test library to the POM deps.
+. `New ...`->`Project...`->`Maven`->`Maven Project`->`Next`.
+. Filter for +{artifactId}+.
+. Fill out the necessary values {noteOption}.
+
+#### IntelliJ IDEA
+
+. `Create New Project`->`Maven`.
+. Check `Create from archetype`.
+. *_On first generation only:_* `Add Archetype...`
+.. `GroupID` = +{groupId}+
+.. `ArtifactId` = +{artifactId}+
+.. `Version` = +{version}+
+. Select the +{artifactId}+ archetype from the list. `Next`.
+. Enter the Maven coordinates of _your_ project. `Next`.
+. Add `compilerMode` and and `testLibrary` to the options {noteOption}.
+. Fill out remaining details and `Finish`.
+
+
+## Options
+
 * `compilerMode`: [`simple`, `test-only`, `retrolambda-main`, `retrolambda-all`]. DEFAULT: `simple`.
 ** `simple`: everything is compiled as Java 8.
 ** `test-only`: set up test for Java 8, and main for Java 7.
-** `retrolambda-main`: main code is compiled as Java 8, and then converted to Java 7 via retrolambda.
-** `retrolambda-all`: all code is compiled as Java 8, and then converted to Java 7 via retrolambda.
+** `retrolambda-main`: main code is compiled as Java 8, and then converted to Java 7 via https://github.com/orfjackal/retrolambda[retrolambda].
+** `retrolambda-all`: all code is compiled as Java 8, and then converted to Java 7 via https://github.com/orfjackal/retrolambda[retrolambda].
+* `testLibrary`: [`junit`, `testng`, `none`]. DEFAULT: `junit`. Adds the requested test library to the POM deps.
 
-NOTE: Retrolambda support provided "as is" - if you have any problems, please file a ticket on the GitHub page!
+NOTE: https://github.com/orfjackal/retrolambda#maven-plugin[Retrolambda] support provided "as is" - if you have any problems, please file a ticket on the GitHub page!
 
-include::common/rationarant.asciidoc[]
+## Why yet another archetype?
+
+An excellent question! First of all, archetypes are sometimes quite underrated as a concept - 
+they provide a gateway to various technologies and frameworks to coders who are not Maven, er, 
+https://en.wikipedia.org/wiki/Maven[mavens].
+
+Given that, let's take a look at some "generic" archetypes such as `net.alchim31.maven:scala-archetype-simple` 
+or `org.apache.maven.archetypes:maven-archetype-quickstart`. After project creation, 
+it becomes apparent that they serve mainly the following purposes:
+* creating the POM boilerplate for the specific project type,
+* introducing the POM creator to some associated frameworks, technologies and/or patterns (e.g. the Scala archetype includes no less than _three_ different test libraries at the same time).
+
+At this point, coupled with the premise that POMs are essentially executable (declarative) build configuration code, 
+it can be argued that the aforementioned archetypes fail the 
+https://en.wikipedia.org/wiki/Single_responsibility_principle[SRP].
+
+The archetype you're now viewing, and its sister project,
+ attempt to alleviate this problem.
+
+Namely, they have a single goal in mind: enable a user to create multiple projects, 
+with the most popular _exclusive_ configuration _variants_, and with the _least_ "educto-boilerplate" to clean up.
+
+The last subpoint emphasizes why this goal was chosen as a primary one, over educating newcomers. 
+
+Nowadays, various 3rd party ecosystem libs (such as the aforementioned http://junit.org/[three] 
+http://www.scalatest.org/[testing] https://etorreborre.github.io/specs2/[libraries] ) 
+tend to do a decent job at introducing new developers. Therefore, it is posited that it's more efficient for 
+an archetype to just focus on providing a _tabula rasa_.
