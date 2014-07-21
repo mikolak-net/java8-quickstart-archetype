@@ -10,7 +10,7 @@
 
 	<groupId>pl.org.miki</groupId>
 	<artifactId>java8-quickstart-archetype</artifactId>
-	<version>1.0.0</version>
+	<version>1.0.1-SNAPSHOT</version>
 	<packaging>maven-archetype</packaging>
 
 	<name>${project.artifactId}</name>
