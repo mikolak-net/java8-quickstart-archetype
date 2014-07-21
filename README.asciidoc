@@ -3,6 +3,12 @@
 :artifactId: java8-quickstart-archetype
 :version: 1.0.0
 :noteOption: (see <<_options,Options>> for more info)
+:artifactSearchName: java8
+//due to lack of includes (see https://github.com/github/markup/issues/335), have to make-do with the following
+:optionLinesBatch1: -DcompilerMode=[simple, test-only, retrolambda-main, retrolambda-all] \ #optional
+:optionLinesBatch2: -DtestLibrary=[junit, testng, none] #optional
+:optionLinesBatch3:
+:optionLineInteractive: compilerMode, testLibrary
 :toc:
 
 ## Introduction
@@ -29,8 +35,9 @@ Analogous to `maven-quickstart-archetype`. Since the archetype is now on Maven C
 mvn archetype:generate -B \
  -DarchetypeGroupId={groupId} -DarchetypeArtifactId={artifactId} -DarchetypeVersion={version} \
  -DgroupId=com.example -DartifactId=project -Dversion=1.0 -Dpackage=com.example.project \
- -DcompilerMode=[simple, test-only, retrolambda-main, retrolambda-all] \ #optional
- -DtestLibrary=[junit, testng, none] #optional
+ {optionLinesBatch1}
+ {optionLinesBatch2}
+ {optionLinesBatch3}
 ----
 
 #### Interactive
@@ -39,7 +46,7 @@ mvn archetype:generate -B \
 ----
 cd x #where x is your "workspace" directory
 mvn archetype:generate
-#filter by e.g. "java8", or gId:aId, which is {groupId}:{artifactId}
+#filter by e.g. "{artifactSearchName}", or gId:aId, which is {groupId}:{artifactId}
 #input artifactId etc. 
 ----
 
@@ -52,6 +59,7 @@ mvn archetype:generate
 . Fill out the necessary values {noteOption}.
 
 #### IntelliJ IDEA
+[subs="attributes"]
 
 . `Create New Project`->`Maven`.
 . Check `Create from archetype`.
@@ -61,7 +69,7 @@ mvn archetype:generate
 .. `Version` = +{version}+
 . Select the +{artifactId}+ archetype from the list. `Next`.
 . Enter the Maven coordinates of _your_ project. `Next`.
-. Add `compilerMode` and and `testLibrary` to the options {noteOption}.
+. Add +{optionLineInteractive}+ to the options {noteOption}.
 . Fill out remaining details and `Finish`.
 
 
