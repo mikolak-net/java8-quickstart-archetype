@@ -1,4 +1,5 @@
 # java8-quickstart-archetype
+:experimental:
 :groupId: pl.org.miki
 :artifactId: java8-quickstart-archetype
 :version: 1.0.0
@@ -54,23 +55,23 @@ mvn archetype:generate
 
 #### Eclipse
 
-. `New ...`->`Project...`->`Maven`->`Maven Project`->`Next`.
-. Filter for +{artifactId}+.
-. Fill out the necessary values {noteOption}.
+. menu:New ...[Project... > Maven > Maven Project > Next].
+. Filter for +{artifactId}+. btn:[Next].
+. Fill out the necessary values {noteOption}. btn:[Finish]
 
 #### IntelliJ IDEA
 [subs="attributes"]
 
-. `Create New Project`->`Maven`.
+. menu:Create New Project[Maven].
 . Check `Create from archetype`.
-. *_On first generation only:_* `Add Archetype...`
+. *_On first generation only:_* btn:[Add Archetype...]
 .. `GroupID` = +{groupId}+
 .. `ArtifactId` = +{artifactId}+
 .. `Version` = +{version}+
-. Select the +{artifactId}+ archetype from the list. `Next`.
-. Enter the Maven coordinates of _your_ project. `Next`.
+. Select the +{artifactId}+ archetype from the list. btn:[Next].
+. Enter the Maven coordinates of _your_ project. btn:[Next].
 . Add +{optionLineInteractive}+ to the options {noteOption}.
-. Fill out remaining details and `Finish`.
+. Fill out remaining details and btn:[Finish].
 
 
 ## Options
