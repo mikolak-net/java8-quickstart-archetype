@@ -10,7 +10,7 @@
 :optionLinesBatch2: -DtestLibrary=[junit, testng, none] #optional
 :optionLinesBatch3:
 :optionLineInteractive: compilerMode, testLibrary
-:toc:
+:toc: right
 
 ## Introduction
 
@@ -18,10 +18,21 @@ A bloody simple Java 8 archetype. Has the following features:
 
  * minimizes the amount of "example" files that you would have to delete anyway (cf. `maven-quickstart-archetype`).
  * automatically creates *empty* package directories for `main` and `test`.
- * let's you setup many Java 8 configuration variants for all your legacy needs {noteOption}.
+ * lets you setup many Java 8 configuration variants for all your legacy needs {noteOption}.
  * optionally includes JUnit or TestNG dependencies (JUnit by default).
  
 In general, this archetype is primarily useful for quickly creating cruft-free projects for Java 8 development.
+
+## Options
+
+* `compilerMode`: [`simple`, `test-only`, `retrolambda-main`, `retrolambda-all`]. DEFAULT: `simple`.
+** `simple`: everything is compiled as Java 8.
+** `test-only`: set up test for Java 8, and main for Java 7.
+** `retrolambda-main`: main code is compiled as Java 8, and then converted to Java 7 via https://github.com/orfjackal/retrolambda[retrolambda].
+** `retrolambda-all`: all code is compiled as Java 8, and then converted to Java 7 via https://github.com/orfjackal/retrolambda[retrolambda].
+* `testLibrary`: [`junit`, `testng`, `none`]. DEFAULT: `junit`. Adds the requested test library to the POM deps.
+
+NOTE: https://github.com/orfjackal/retrolambda#maven-plugin[Retrolambda] support provided "as is" - if you have any problems, please file a ticket on the GitHub page!
 
 ## Usage
 
@@ -72,18 +83,6 @@ mvn archetype:generate
 . Enter the Maven coordinates of _your_ project. btn:[Next].
 . Add +{optionLineInteractive}+ to the options {noteOption}.
 . Fill out remaining details and btn:[Finish].
-
-
-## Options
-
-* `compilerMode`: [`simple`, `test-only`, `retrolambda-main`, `retrolambda-all`]. DEFAULT: `simple`.
-** `simple`: everything is compiled as Java 8.
-** `test-only`: set up test for Java 8, and main for Java 7.
-** `retrolambda-main`: main code is compiled as Java 8, and then converted to Java 7 via https://github.com/orfjackal/retrolambda[retrolambda].
-** `retrolambda-all`: all code is compiled as Java 8, and then converted to Java 7 via https://github.com/orfjackal/retrolambda[retrolambda].
-* `testLibrary`: [`junit`, `testng`, `none`]. DEFAULT: `junit`. Adds the requested test library to the POM deps.
-
-NOTE: https://github.com/orfjackal/retrolambda#maven-plugin[Retrolambda] support provided "as is" - if you have any problems, please file a ticket on the GitHub page!
 
 ## Why yet another archetype?
 
