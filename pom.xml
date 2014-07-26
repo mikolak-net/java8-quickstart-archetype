@@ -3,12 +3,12 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
-		<groupId>org.sonatype.oss</groupId>
-		<artifactId>oss-parent</artifactId>
-		<version>9</version>
+		<groupId>pl.org.miki</groupId>
+		<artifactId>quickstart-archetype-common</artifactId>
+		<version>1.0.0</version>
+		<relativePath>common/pom.xml</relativePath>
 	</parent>
 
-	<groupId>pl.org.miki</groupId>
 	<artifactId>java8-quickstart-archetype</artifactId>
 	<version>1.0.1-SNAPSHOT</version>
 	<packaging>maven-archetype</packaging>
@@ -48,43 +48,6 @@ NOTE: Retrolambda support provided "as is" - if you have any problems, please fi
 		</developer>
 	</developers>
 	<inceptionYear>2014</inceptionYear>
-
-	<properties>
-		<archetype.plugin.version>2.2</archetype.plugin.version>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-	</properties>
-
-	<profiles>
-		<profile>
-			<id>release-version</id>
-			<activation>
-				<property>
-					<name>performRelease</name>
-					<value>true</value>
-				</property>
-			</activation>
-			<build>
-				<plugins>
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-gpg-plugin</artifactId>
-						<version>1.4</version>
-						<executions>
-							<execution>
-								<id>sign-artifacts</id>
-								<phase>verify</phase>
-								<goals>
-									<goal>sign</goal>
-								</goals>						
-							</execution>
-
-						</executions>
-					</plugin>				
-				</plugins>
-			</build>
-		</profile>
-	</profiles>
-
 	<build>
 		<extensions>
 			<extension>
@@ -102,40 +65,5 @@ NOTE: Retrolambda support provided "as is" - if you have any problems, please fi
 				</plugin>
 			</plugins>
 		</pluginManagement>
-
-		<plugins>
-			<plugin>
-				<!-- we need this to create a dummy Javadoc as required by the Sonatype 
-					OSS repo. -->
-				<artifactId>maven-assembly-plugin</artifactId>
-				<version>2.4</version>
-				<executions>
-					<execution>
-						<phase>verify</phase>
-						<goals>
-							<goal>single</goal>
-						</goals>
-						<configuration>
-							<descriptors>
-								<descriptor>src/assemble/javadoc-dummy.xml</descriptor>
-							</descriptors>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-source-plugin</artifactId>
-				<version>2.2.1</version>
-				<executions>
-					<execution>
-						<phase>verify</phase>
-						<goals>
-							<goal>jar-no-fork</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-		</plugins>
 	</build>
 </project>
