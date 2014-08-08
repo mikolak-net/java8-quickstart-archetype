@@ -93,6 +93,7 @@ https://en.wikipedia.org/wiki/Maven[mavens].
 Given that, let's take a look at some "generic" archetypes such as `net.alchim31.maven:scala-archetype-simple` 
 or `org.apache.maven.archetypes:maven-archetype-quickstart`. After project creation, 
 it becomes apparent that they serve mainly the following purposes:
+
 * creating the POM boilerplate for the specific project type,
 * introducing the POM creator to some associated frameworks, technologies and/or patterns (e.g. the Scala archetype includes no less than _three_ different test libraries at the same time).
 
