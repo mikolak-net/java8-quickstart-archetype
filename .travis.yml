@@ -5,7 +5,7 @@ jdk:
 env:
     global:
         - EXAMPLE_DIR=testproject
-        - ARCHETYPE_VERSION=1.1.0
+        - ARCHETYPE_VERSION=1.1.0-SNAPSHOT
         - TEST_DIR=testdir
     matrix:
         - COMPILER_MODE=simple TEST_LIBRARY=none
@@ -15,6 +15,11 @@ env:
         - TEST_LIBRARY=none COMPILER_MODE=simple
         - TEST_LIBRARY=junit COMPILER_MODE=simple
         - TEST_LIBRARY=testng COMPILER_MODE=simple
+install:
+    - cd common
+    - mvn install
+    - cd ..
+    - mvn install
 before_script:
     - mkdir $TEST_DIR
     - cd $TEST_DIR
