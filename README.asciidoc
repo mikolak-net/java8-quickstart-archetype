@@ -12,6 +12,8 @@
 :optionLineInteractive: compilerMode, testLibrary
 :toc: right
 
+image:https://travis-ci.org/mikolak-net/java8-quickstart-archetype.svg?branch=master["Build Status", link="https://travis-ci.org/mikolak-net/java8-quickstart-archetype"]
+
 ## Introduction
 
 A bloody simple Java 8 archetype. Has the following features:
