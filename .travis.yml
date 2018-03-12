@@ -5,7 +5,7 @@ jdk:
 env:
     global:
         - EXAMPLE_DIR=testproject
-        - ARCHETYPE_VERSION=1.1.0
+        - ARCHETYPE_VERSION=1.1.0-SNAPSHOT
     matrix:
         - COMPILER_MODE=simple TEST_LIBRARY=none
         - COMPILER_MODE=test-only TEST_LIBRARY=none
