@@ -6,6 +6,7 @@ env:
     global:
         - EXAMPLE_DIR=testproject
         - ARCHETYPE_VERSION=1.1.0-SNAPSHOT
+        - TEST_DIR=testdir
     matrix:
         - COMPILER_MODE=simple TEST_LIBRARY=none
         - COMPILER_MODE=test-only TEST_LIBRARY=none
@@ -14,6 +15,9 @@ env:
         - TEST_LIBRARY=none COMPILER_MODE=simple
         - TEST_LIBRARY=junit COMPILER_MODE=simple
         - TEST_LIBRARY=testng COMPILER_MODE=simple
+before_script:
+    - mkdir $TEST_DIR
+    - cd $TEST_DIR
 script:
     - mvn archetype:generate -B -DarchetypeGroupId=pl.org.miki -DarchetypeArtifactId=java8-quickstart-archetype -DarchetypeVersion=$ARCHETYPE_VERSION -DgroupId=com.example -DartifactId=$EXAMPLE_DIR -Dversion=1.0 -Dpackage=com.example.project -DcompilerMode=$COMPILER_MODE -DtestLibrary=$TEST_LIBRARY
     - test -f $EXAMPLE_DIR/pom.xml
