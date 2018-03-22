@@ -15,6 +15,7 @@ env:
         - TEST_LIBRARY=none COMPILER_MODE=simple
         - TEST_LIBRARY=junit COMPILER_MODE=simple
         - TEST_LIBRARY=testng COMPILER_MODE=simple
+        - TEST_LIBRARY=junit5 COMPILER_MODE=simple
 install:
     - cd common
     - mvn install

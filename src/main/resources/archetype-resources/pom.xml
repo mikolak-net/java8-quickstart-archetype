@@ -103,7 +103,7 @@
 	</build>
 	<dependencies>
 ##test library code
-#set ($supportedLibs = ["junit","testng"])
+#set ($supportedLibs = ["junit","testng", "junit5"])
 #set ($validTestLibraries = ["none"])
 #set ($dummyResult = $validTestLibraries.addAll($supportedLibs))
 ##
@@ -119,6 +119,10 @@
 			<groupId>org.testng</groupId>
 			<artifactId>testng</artifactId>
 			<version>6.14.2</version>
+#elseif ( $testLibrary == "junit5" )
+			<groupId>org.junit.jupiter</groupId>
+			<artifactId>junit-jupiter-api</artifactId>
+			<version>5.1.0</version>
 #end
 			<scope>test</scope>
 		</dependency>
